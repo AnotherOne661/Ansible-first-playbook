@@ -1,0 +1,62 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: install updates (CentOS)
+    tags: always
+    dnf:
+      update_cache: yes
+      update_only: yes
+    when: ansible_distribution == "CentOS"
+
+  - name: install updates (Ubuntu)
+    tags: always
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_os_family in ["Debian", "Ubuntu"]
+
+- hosts: webservers
+  become: true
+  tasks:
+
+  - name: Install apache and PHP for Ubuntu servers
+    tags: ubuntu,apache,apache2,php
+    apt:
+      name:
+        - apache2
+        - libapache2-mod-php
+      state: latest
+    when: ansible_os_family in ["Debian", "Ubuntu"]
+
+  - name: Install apache and PHP for CentOS Servers
+    tags: centos,apache,apache2,php
+    dnf:
+      name:
+        - httpd
+        - php
+      state: latest
+    when: ansible_os_family == "CentOS"
+
+
+- hosts: databases
+  become: true
+  tasks:
+
+  - name: Install mariaDB in Ubuntu server
+    tags: ubuntu, mariadb,db
+    apt:
+      name:
+        - mariadb-server
+      state: latest
+    when: ansible_os_family in ["Debian", "Ubuntu"]
+
+  - name: Install mariaDB in CentOS Server
+    tags: centos,db,mariadb
+    dnf:
+      name:
+        - mariadb
+      state: latest
+    when: ansible_os_family == "CentOS"
