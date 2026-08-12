@@ -15,5 +15,14 @@ ssh-copy-id -i /ssh/x.pub <Target IP>
 ### upgrade=dist makes a apt upgrade 
 ### setup > It's the one executed automatically at the beginning of a playbook, essentially, gathers facts 
 ### command > literalmente ejecuta el comando pasado como argumento
-
+### copy > copies a file from host to one or more nodes
 ### service > para manejar servicios, también acepta name y state
+
+
+## Ansible features
+
+### Variables, declared in the inventory, called with "{{}}"
+
+### Tags: called like tag: xyz, lets you execute just part of a playbook
+
+### Where: Logical door

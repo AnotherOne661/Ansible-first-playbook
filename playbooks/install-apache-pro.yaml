@@ -18,6 +18,24 @@
       update_cache: yes
     when: ansible_os_family in ["Debian", "Ubuntu"]
 
+- hosts: workload
+  become: true
+  tasks:
+
+  - name: Install unzip
+    package:
+      name: unzip
+      state: latest
+
+  - name: Install Terraform
+    unarchive:
+      src: https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip
+      dest: /usr/local/bin
+      remote_src: yes
+      mode: 0755
+      owner: root
+      group: root
+
 - hosts: webservers
   become: true
   tasks:
@@ -39,6 +57,15 @@
         - php
       state: latest
     when: ansible_os_family == "CentOS"
+
+  - name: Copy default page
+    tags: apache,apache2,httpd
+    copy:
+      src: ../files/index.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644
 
 
 - hosts: databases
