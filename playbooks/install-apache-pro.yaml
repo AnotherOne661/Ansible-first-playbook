@@ -67,6 +67,19 @@
       group: root
       mode: 0644
 
+  - name: Change default page content
+    tags: apache,apache2
+    lineinfile:
+      path: /var/www/html/index.html
+      regexp: '^<h1>This is a test'
+      line: "Almost there"
+
+  - name: Restart service to apply changes
+    tags: apache,apache2
+    service:
+      name: apache2
+      state: restarted
+
 
 - hosts: databases
   become: true
