@@ -1,0 +1,4 @@
+[defaults]
+inventory = inventory/hosts.yml
+private_key_file = ssh/priv
+
