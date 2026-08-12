@@ -1,0 +1,50 @@
+services:
+
+  web01:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web01
+    hostname: web01
+    ports:
+      - "2221:22"
+    volumes:
+      - ./ssh/id_ed25519.pub:/ssh/id_ed25519.pub:ro
+      - ./docker/entrypoint.sh:/entrypoint.sh:ro
+    entrypoint: ["/entrypoint.sh"]
+    networks:
+      - ansible-lab
+
+  web02:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web02
+    hostname: web02
+    ports:
+      - "2222:22"
+    volumes:
+      - ./ssh/id_ed25519.pub:/ssh/id_ed25519.pub:ro
+      - ./docker/entrypoint.sh:/entrypoint.sh:ro
+    entrypoint: ["/entrypoint.sh"]
+    networks:
+      - ansible-lab
+
+  db01:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: db01
+    hostname: db01
+    ports:
+      - "2223:22"
+    volumes:
+      - ./ssh/id_ed25519.pub:/ssh/id_ed25519.pub:ro
+      - ./docker/entrypoint.sh:/entrypoint.sh:ro
+    entrypoint: ["/entrypoint.sh"]
+    networks:
+      - ansible-lab
+
+networks:
+  ansible-lab:
+    name: ansible-lab
