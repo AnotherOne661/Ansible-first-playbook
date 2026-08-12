@@ -1,0 +1,15 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: install apache2 package
+    package:
+      name:
+        - "{{ apache_package }}"
+        - "{{ php_package }}"
+      state: latest
+      update_cache: yes
+# As variables are set in the inventory, the DB host will fail, because he doesn't have the php_package variable set
+# This is to show how variables can be declared inventory-wide and group-wide
