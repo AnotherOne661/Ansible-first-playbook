@@ -3,6 +3,11 @@ set -e
 
 mkdir -p /run/sshd
 useradd -m -s /bin/bash ansible 2>/dev/null || true
+echo 'ansible:ansible' | chpasswd
+
+echo 'ansible ALL=(ALL) ALL' > /etc/sudoers.d/ansible
+chmod 440 /etc/sudoers.d/ansible
+
 
 mkdir -p /home/ansible/.ssh
 
