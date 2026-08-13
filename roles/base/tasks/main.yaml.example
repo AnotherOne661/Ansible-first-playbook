@@ -1,0 +1,4 @@
+- name: add ssh key for admin
+  authorized_key:
+    user: admin
+    key: ""

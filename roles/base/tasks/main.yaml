@@ -1,0 +1,11 @@
+- name: add user admin
+  tags: always
+  user:
+    name: admin
+    groups: root
+
+
+- name: add ssh key for admin
+  authorized_key:
+    user: admin
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINOaHuhREDjsFHFPTeCeksqW9QnDOw/EOzt3ufKVqMcH aaron@NUXIA-SW-PW-02"

@@ -1,0 +1,40 @@
+
+    - name: Install apache and PHP for Ubuntu servers
+      tags: ubuntu,apache,apache2,php
+      apt:
+        name:
+          - apache2
+          - libapache2-mod-php
+        state: latest
+      when: ansible_os_family in ["Debian", "Ubuntu"]
+
+    - name: Install apache and PHP for CentOS Servers
+      tags: centos,apache,apache2,php
+      dnf:
+        name:
+          - httpd
+          - php
+        state: latest
+      when: ansible_os_family == "CentOS"
+
+    - name: Copy default page
+      tags: apache,apache2,httpd
+      copy:
+        src: ../files/index.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Change default page content
+      tags: apache,apache2
+      lineinfile:
+        path: /var/www/html/index.html
+        regexp: '^<h1>This is a test'
+        line: "Almost there"
+
+    - name: Restart service to apply changes
+      tags: apache,apache2
+      service:
+        name: apache2
+        state: restarted

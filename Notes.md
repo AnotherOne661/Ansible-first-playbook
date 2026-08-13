@@ -25,4 +25,11 @@ ssh-copy-id -i /ssh/x.pub <Target IP>
 
 ### Tags: called like tag: xyz, lets you execute just part of a playbook
 
-### Where: Logical door
+### When: Logical door
+
+### Changed_when: This play will never/always count as changed
+
+
+## Ansible Config
+
+### remote_user: user for playbooks

@@ -1,4 +1,4 @@
 [defaults]
 inventory = inventory/hosts.yml
-private_key_file = ssh/priv
-
+private_key_file = ssh/YOUR_KEY
+roles_path = ./roles
