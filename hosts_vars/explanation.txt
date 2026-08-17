@@ -1,0 +1,4 @@
+# Host Variables
+
+## You can, by naming a yml file with the host IP address or DNS,
+## make variables directly for THAT host. No need to change anything in the playbook

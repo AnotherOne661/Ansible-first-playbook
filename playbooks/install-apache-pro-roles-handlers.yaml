@@ -1,0 +1,39 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: install updates (CentOS)
+    tags: always
+    dnf:
+      update_cache: yes
+      update_only: yes
+    when: ansible_distribution == "CentOS"
+
+  - name: install updates (Ubuntu)
+    tags: always
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_os_family in ["Debian", "Ubuntu"]
+
+- hosts: all
+  become: true
+  roles:
+    - base
+
+- hosts: workload
+  become: true
+  roles:
+    - workload
+
+- hosts: webservers
+  become: true
+  roles:
+    - webservers
+
+- hosts: databases
+  become: true
+  roles:
+    - databases
