@@ -9,3 +9,13 @@
   authorized_key:
     user: admin
     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINOaHuhREDjsFHFPTeCeksqW9QnDOw/EOzt3ufKVqMcH aaron@NUXIA-SW-PW-02"
+
+- name: Generate ssh config
+  tags: ssh
+  template:
+    src: "{{ ssh_template_file}}"
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_ssh
